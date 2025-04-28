@@ -1,28 +1,28 @@
 # Technical Outline
 
-## 1. Core Architecture
+### 1. Core Architecture
 
-    - Server
+- Server
         xxxxx
 
     <br>
     
-    - Networking
+- Networking
         xxxxx
 
     <br>
 
-    - Model
+- Model
         xxxxx
 
     <br>
 
-    - Command Parser
+- Command Parser
         xxxxx
 
     <br>
 
-    - Game Loop
+- Game Loop
         xxxxx
 
     <br>
