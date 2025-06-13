@@ -2,29 +2,46 @@
 #define SERVER_HPP
 
 #include <boost/asio.hpp>
+#include <boost/asio/streambuf.hpp>
+#include <memory>
 
-namespace Mud {
-namespace Server {
-class Server {
+namespace Mud
+{
+namespace Net
+{
+
+struct TCPConnection
+{
+    boost::asio::ip::tcp::socket m_socket;
+    unsigned                     m_id;
+    boost::asio::streambuf       m_read_buffer;
+    // constructor
+};
+
+class Server
+{
 public:
-  Server(int port)
-      : m_acceptor(m_io_service, boost::asio::ip::tcp::endpoint(
-                                     boost::asio::ip::tcp::v6(), port)) {}
-  void Run() {
-    Accept();
-    m_io_service.run();
-  }
+    Server(int port)
+    : m_acceptor(m_io_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), port))
+    {
+    }
+    void run()
+    {
+        accept();
+        m_io_service.run();
+    }
 
 private:
-  void Accept() {
-    m_accept.async_accept(
+    void accept()
+    {
         // Handler
-        Accept());
-  }
-  boost::asio::io_service m_io_service;
-  boost::asio::ip::tcp::acceptor m_acceptor;
+        accept();
+    }
+    boost::asio::io_context        m_io_service;
+    boost::asio::ip::tcp::acceptor m_acceptor;
+    std::shared_ptr<TCPConnection> m_pointer;
 };
-} // namespace Server
-} // namespace Mud
+}  // namespace Net
+}  // namespace Mud
 
 #endif

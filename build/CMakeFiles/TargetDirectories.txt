@@ -1,3 +1,0 @@
-/home/debian/omega/build/CMakeFiles/OmegaGame.dir
-/home/debian/omega/build/CMakeFiles/edit_cache.dir
-/home/debian/omega/build/CMakeFiles/rebuild_cache.dir
