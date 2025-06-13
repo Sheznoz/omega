@@ -1,0 +1,82 @@
+# CMake generated files
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json  # Crucial for Clangd/LSP, typically in build dir
+
+# Build directories (common naming conventions)
+build/
+bin/
+out/
+Release/
+Debug/
+x64/
+x86/
+
+# Executables
+*.exe        # Windows executables
+*.dll        # Windows dynamic libraries
+*.lib        # Windows static libraries
+*.so         # Linux shared objects
+*.dylib      # macOS dynamic libraries
+*.a          # Static libraries (Linux/macOS)
+*.obj        # Object files
+*.o          # Object files
+
+# IDE specific files
+.vs/                   # Visual Studio solution files
+*.VC.opendb            # Visual Studio
+*.VC.db                # Visual Studio
+*.sdf                  # Visual Studio
+*.suo                  # Visual Studio
+*.user                 # Visual Studio
+*.ncb                  # Visual Studio
+*.opensdf              # Visual Studio
+*.sln.docstates        # Visual Studio
+xcuserdata/       # Xcode user data
+*.xcodeproj/project.xcworkspace/ # Xcode workspace
+*.xcodeproj/xcuserdata/ # Xcode user data
+*.xcodeproj/*.pbxuser # Xcode user data
+*.pro.user             # QtCreator user data
+*.kdev4                # KDevelop/Kate
+*.swp                  # Vim swap files
+*~                     # Emacs backup files
+*.bak                  # Generic backup files
+.vscode/               # VS Code configuration (consider keeping if shared configs are needed)
+.ccls-cache/           # C/C++ language server cache (ccls)
+.clangd/               # Clangd specific cache
+
+# Tool-specific caches and temporary directories
+.cache/                # Generic cache directory
+*.log
+*.tmp
+*.temp
+temp/
+log/
+tmp/
+
+# Dependency Management (if you use vcpkg, Conan, etc.)
+vcpkg/
+conanfile.lock
+conanbuildinfo.cmake
+conan-install/
+
+# OS generated files
+.DS_Store              # macOS
+.Trashes               # macOS
+Thumbs.db              # Windows
+ehthumbs.db            # Windows
+Desktop.ini            # Windows
+
+# If you store documentation, examples, or large data files outside source control
+# (and want to specifically ignore them)
+# docs/
+# examples/
+# large_data/
+
+# Environment specific files
+.env
+.venv/                 # Python virtual environments (if you mix Python for scripting/tools)
