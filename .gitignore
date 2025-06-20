@@ -51,6 +51,7 @@ xcuserdata/       # Xcode user data
 
 # Tool-specific caches and temporary directories
 .cache/                # Generic cache directory
+.cache/*
 *.log
 *.tmp
 *.temp
