@@ -1,18 +1,11 @@
-#include "Server.hpp"
+#include "SERVER.hpp"
 // #include <iostream>
 
-using namespace Mud::Net;
+using namespace Net;
 
 namespace
 {
 const int SERVER_PORT = 5000;
 }
 
-int main()
-{
-    Server server(SERVER_PORT);
-    server.run();
-
-
-    return 0;
-}
+int main() { return 0; }
