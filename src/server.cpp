@@ -25,10 +25,19 @@ void async_write_message(ConnectionPtr connection, const char* message_data, siz
 void handle_write_message(ConnectionPtr                    connection,
                           const boost::system::error_code& error,
                           size_t                           bytes_transferred);
+Server::Server(int port)
+: m_io_service()
+, m_acceptor(m_io_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), port))
+, m_next_connection_id(1)
+{
+}
 
-void init_server(Server& server, int port);
-void run_server(Server& server);
-void start_accept_loop(Server& server);
+
+void run_server(Server& server)
+{
+    // server.m_acceptor.async_accept();
+    std::cout << "Server starting. Waiting for connection..." << std::endl;
+};
 
 void handle_accept(Server&                          server,
                    const boost::system::error_code& error,

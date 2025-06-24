@@ -1,11 +1,15 @@
-#include "SERVER.hpp"
+#include "server.cpp"
 // #include <iostream>
 
 using namespace Net;
 
 namespace
 {
-const int SERVER_PORT = 5000;
+const int SERVER_PORT = 8080;
 }
 
-int main() { return 0; }
+int main()
+{
+    Server server(SERVER_PORT);
+    return 0;
+}

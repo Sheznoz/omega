@@ -11,6 +11,7 @@ namespace Net
 
 struct Server;
 struct TCPConnection;
+
 using ConnectionPtr = std::shared_ptr<TCPConnection>;
 
 struct TCPConnection
@@ -19,13 +20,9 @@ struct TCPConnection
     boost::asio::streambuf       streambuf;
     unsigned                     m_id;
 
-    TCPConnection(boost::asio::ip::tcp::socket socket, unsigned id)
-    : m_socket(std::move(socket))
-    , m_id(id)
-    {
-    }
-    ~TCPConnection();
+    TCPConnection(boost::asio::ip::tcp::socket socket, unsigned id);
 };
+
 void async_read_message(ConnectionPtr connection);
 void handle_read_message(ConnectionPtr                    connection,
                          const boost::system::error_code& error,
@@ -42,12 +39,7 @@ struct Server
     std::map<unsigned, TCPConnection> m_active_connections;
     unsigned                          m_next_connection_id;
 
-    Server(int port)
-    : m_io_service()
-    , m_acceptor(m_io_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), port))
-    , m_next_connection_id(1)
-    {
-    }
+    Server(int port);
 };
 
 void run_server(Server& server);
