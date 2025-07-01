@@ -14,7 +14,7 @@ struct TCPConnection;
 
 using ConnectionPtr = std::shared_ptr<TCPConnection>;
 
-struct TCPConnection
+struct TCPConnection : public std::enable_shared_from_this<TCPConnection>
 {
     boost::asio::ip::tcp::socket m_socket;
     boost::asio::streambuf       streambuf;
@@ -27,6 +27,7 @@ void async_read_message(ConnectionPtr connection);
 void handle_read_message(ConnectionPtr                    connection,
                          const boost::system::error_code& error,
                          size_t                           bytes_transferred);
+
 void async_write_message(ConnectionPtr connection, const char* message_data, size_t message_len);
 void handle_write_message(ConnectionPtr                    connection,
                           const boost::system::error_code& error,
@@ -36,14 +37,13 @@ struct Server
 {
     boost::asio::io_context           m_io_service;
     boost::asio::ip::tcp::acceptor    m_acceptor;
-    std::map<unsigned, TCPConnection> m_active_connections;
+    std::map<unsigned, ConnectionPtr> m_active_connections;
     unsigned                          m_next_connection_id;
 
     Server(int port);
 };
 
-void run_server(Server& server);
-void start_accept_loop(Server& server);
+void start_accept(Server& server);
 
 void handle_accept(Server&                          server,
                    const boost::system::error_code& error,
