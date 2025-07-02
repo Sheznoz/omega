@@ -17,7 +17,7 @@ using ConnectionPtr = std::shared_ptr<TCPConnection>;
 struct TCPConnection : public std::enable_shared_from_this<TCPConnection>
 {
     boost::asio::ip::tcp::socket m_socket;
-    boost::asio::streambuf       streambuf;
+    boost::asio::streambuf       m_buffer;
     unsigned                     m_id;
 
     TCPConnection(boost::asio::ip::tcp::socket socket, unsigned id);
@@ -45,9 +45,9 @@ struct Server
 
 void start_accept(Server& server);
 
-void handle_accept(Server&                          server,
-                   const boost::system::error_code& error,
-                   boost::asio::ip::tcp::socket     socket);
+void handle_accept(Server&                                       server,
+                   std::shared_ptr<boost::asio::ip::tcp::socket> socket,
+                   const boost::system::error_code&              error);
 
 }  // namespace Net
 #endif  // !SERVER_HPP
