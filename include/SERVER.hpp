@@ -28,7 +28,9 @@ void handle_read_message(ConnectionPtr                    connection,
                          const boost::system::error_code& error,
                          size_t                           bytes_transferred);
 
-void async_write_message(ConnectionPtr connection, const char* message_data, size_t message_len);
+void async_write_message(ConnectionPtr      connection,
+                         const std::string& message_data,
+                         size_t             message_len);
 void handle_write_message(ConnectionPtr                    connection,
                           const boost::system::error_code& error,
                           size_t                           bytes_transferred);
