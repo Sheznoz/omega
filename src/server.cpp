@@ -5,6 +5,7 @@
 #include <boost/asio/read_until.hpp>
 #include <boost/asio/streambuf.hpp>
 #include <boost/system/detail/error_code.hpp>
+#include <string>
 #include <memory>
 #include <iostream>
 #include <functional>
@@ -12,8 +13,8 @@
 namespace Net
 {
 
-// constructor
-TCPConnection::TCPConnection(boost::asio::ip::tcp::socket socket, unsigned id)
+
+TCPConnection::TCPConnection(boost::asio::ip::tcp::socket socket, unsigned id)  // constructor
 : m_socket(std::move(socket))
 , m_id(id)
 {
@@ -37,8 +38,28 @@ void handle_read_message(ConnectionPtr                    connection,
                          const boost::system::error_code& error,
                          size_t                           bytes_transferred)
 {
-    // boost::asio::const_buffer buffer_sequence = connection->m_buffer.data();
-    // write this make it work idiot
+    if (!error)
+    {
+        boost::asio::const_buffer sequence_buffer = connection->m_buffer.data();
+        const char*               data_ptr    = static_cast<const char*>(sequence_buffer.data());
+        size_t                    message_len = bytes_transferred - 1;
+        std::string               received_command_str(data_ptr, message_len);
+
+        // TODO: interface for the command processing queue, yet to be implemented
+        //          enqueue_message(received_command_str, connection->m_id);
+
+        connection->m_buffer.consume(bytes_transferred);
+        async_read_message(connection);
+    }
+    else
+    {
+        std::cerr << "Connection (ID: " << connection->m_id << ") read error: " << error.message()
+                  << std::endl;
+        boost::system::error_code ec_shutdown, ec_close;
+        connection->m_socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both, ec_shutdown);
+        connection->m_socket.close(ec_close);
+        // TODO: implement server.m_active_connections removing and closing TCPConnection
+    }
 }
 void async_write_message(ConnectionPtr connection, const char* message_data, size_t message_len);
 void handle_write_message(ConnectionPtr                    connection,
@@ -76,7 +97,7 @@ void handle_accept(Server&                                       server,
 
         server.m_active_connections[current_id] = new_connection;
 
-        async_read_message(new_connection);
+        // async_read_message(new_connection);
     }
     else
     {
